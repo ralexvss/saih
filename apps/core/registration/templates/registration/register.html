@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block sidebar %}
+{% endblock sidebar %}
+{% block nav %}
+{% endblock nav %}
+
+{% block content_wrapper %}
+{% endblock content_wrapper %}
+
+{% block footer %}
+
+{% endblock footer %}
+
+{% block login %}
+<style>
+  .errorlist {
+    color: red;
+  }
+
+  label {
+    display: none;
+  }
+</style>
+
+
+<div class="row justify-content-center">
+  <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0 ">
+        <!-- Nested Row within Card Body -->
+        <div class="row bg-gray-100">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image "></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Crear cuenta!</h1>
+              </div>
+              <form class="user" method="POST"> {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn btn-primary btn-user btn-block" value="Registrar cuenta">
+              </form>
+              <hr>
+              <div class="text-center">
+                <a class="small" href="{% url 'password_reset' %}">Se te olvidó tu contraseña?</a>
+              </div>
+              <div class="text-center">
+                <a class="small" href="{% url 'login' %}">¿Ya tienes una cuenta? Iniciar sesión!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
