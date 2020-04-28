@@ -21,6 +21,9 @@
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css ' %}" rel="stylesheet">
 
+  <!-- Custom scripts for DataPicker-->
+  <link rel="stylesheet" href="{% static 'css/zebra_datepicker.min.css ' %}" rel="stylesheet">
+
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -53,9 +56,10 @@
 
         <!-- Begin Page Content -->
 
-        {% block content %}
+
 
         <div class="container-fluid">
+          {% block content %}
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">
@@ -63,12 +67,12 @@
             Blank Page
             {% endblock content_title %}
           </h1>
-
+          {% endblock content %}
         </div>
         <!-- /.container-fluid -->
 
       </div>
-      {% endblock content %}
+
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -127,6 +131,10 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static 'js/sb-admin-2.min.js ' %}"></script>
+
+  <!-- Custom scripts for DataPicker-->
+  <script src="{% static 'js/zebra_datepicker.min.js ' %}"></script>
+
 
   {% block js_page %}
 

@@ -168,7 +168,14 @@
                 aria-haspopup="true" aria-expanded="false">
                 {% if request.user.is_authenticated %}
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.get_full_name}}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+
+                {% if request.user.profile.avatar == none  %}
+                <img class="img-profile rounded-circle" src="{{request.user.profile.avatar.url}}">
+                {% else%}
+                <img class="img-profile rounded-circle" src="/static/img/anonymus.png">
+                {% endif %}
+
+
                 {% else%}
                 <img class="img-profile rounded-circle" src="/static/img/anonymus.png">
                 {% endif%}
@@ -177,13 +184,13 @@
             {% if request.user.is_authenticated %}
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Perfiles
+                <a class="dropdown-item" href="{% url 'profile' %}">
+                    <i class=" fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Perfil
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{% url 'profile_list' %}">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Configuración
+                    Lista de usuarios
                 </a>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

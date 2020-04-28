@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card mb-3" style="max-width: 640px;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+
+            {% if object.avatar %}
+            <img src="{{object.avatar.url}}" class="card-img" alt="...">
+            {% else %}
+            <img src="{% static 'img/no-avatar.png' %}" class="card-img" alt="...">
+            {% endif %}
+
+
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><small class="text-warning">{{object.user.username}}</small></h5>
+                <p class="card-text"> {{object.user.first_name}} {{object.user.last_name}}</p>
+                <p class="card-text"> {{object.fecha_nacimiento}}</p>
+                <p class="card-text"> {{object.user.email}}</p>
+                <p class="card-text">{{object.biografia}}</p>
+            </div>
+
+            <div class="card-body">
+                <a href="{{profile.link}} " target="blank" class="card-link">{{profile.link}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

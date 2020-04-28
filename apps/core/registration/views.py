@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView
 from django.urls import reverse_lazy
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileForm, EmailForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 #from django import forms
 
@@ -43,5 +46,42 @@ class RegisterCreateView(CreateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ProfileUpdate(TemplateView):
-    template_name = 'registration/profile.html'
+class ProfileUpdate(UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'registration/profile_form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        # recuperamos el objeto que se va a editar
+        profile, created = Profile.objects.get_or_create(
+            user=self.request.user)
+        return profile
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileList(ListView):
+    model = Profile
+    #template_name = "registration/profile_list.html"
+    paginate_by = 3
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileDetail(DetailView):
+    model = Profile
+
+    def get_object(self):
+        # recuperamos el objeto que se va a editar
+        return get_object_or_404(Profile, user__username=self.kwargs['username'])
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileEmailUpdate(UpdateView):
+    model = User
+    form_class = EmailForm
+    template_name = "registration/profile_email_form.html"
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        # recuperamos el objeto que se va a editar
+        return self.request.user
